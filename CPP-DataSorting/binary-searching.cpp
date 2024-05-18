@@ -6,7 +6,6 @@ int main()
     cout << "How many numbers you will put in : ";
     cin >> r;
     int a[r], i, j, x;
-    bool found = 0;
     for (i = 0; i < r; i++)
     {
         cout << "Enter number : ";
@@ -29,23 +28,27 @@ int main()
         cout << a[i] << ", ";
     cout << endl;
     // should search all possible matches
-    cout << "\nEnter number to be searched : ";
-    cin >> u;
-    int m, p = 0, n = r - 1;
-    while (p <= n)
+    while (u >= 0) // keeps getting inputs from the user & THUS -ve inputs are not allowed
     {
-        m = (p + n) / 2;
-        if (u == a[m])
+        cout << "\nEnter number to be searched : ";
+        cin >> u;
+        bool found = 0;
+        int m, p = 0, n = r - 1;
+        while (p <= n)
         {
-            cout << "@ Location : " << m + 1;
-            found = 1;
+            m = (p + n) / 2;
+            if (u == a[m])
+            {
+                cout << "@ Location : " << m + 1;
+                found = 1;
+            }
+            if (u > a[m])
+                p = m + 1;
+            else
+                n = m - 1;
         }
-        if (u > a[m])
-            p = m + 1;
-        else
-            n = m - 1;
+        if (!found)
+            cout << "\nNumber not found anywhere!\n\n";
     }
-    if (!found)
-        cout << "\nNumber not found anywhere!\n\n";
     return 0;
 }
