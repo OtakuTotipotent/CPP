@@ -1,3 +1,13 @@
+/*
+j             j
+  j         j
+    j     j
+      j j
+      j j
+    j     j
+  j         j
+j             j
+*/
 #include <iostream>
 using namespace std;
 
