@@ -128,6 +128,10 @@ public:
              << obtained << '/' << total << " : " << (float(obtained) / total) * 100 << '%' << endl;
     }
 
+    void showHistory()
+    {
+    }
+
     void selectOperation(char choice)
     {
         if (choice == '0')
@@ -156,6 +160,7 @@ public:
         }
         else if (choice == '6')
         {
+            showHistory();
         }
         else
         {
