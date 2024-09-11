@@ -1,14 +1,15 @@
 #include <iostream>
 using namespace std;
-
 class Calculator
 {
-    int n;
+    int n, h;
+    string history[20];
 
 public:
     Calculator()
     {
         n = 0;
+        h = -1; // history header
     }
     void mainMenu()
     {
@@ -49,10 +50,18 @@ public:
             sum += array[i];
         }
         cout << "\n\nsum of ";
-        for (int i = 0; i < n; i++)
+        string str = "";            // saving to history purpose
+        for (int i = 0; i < n; i++) // displaying the input given numbers as well as saving them for history
         {
             cout << array[i] << ',';
+            // saving to history
+            if (i < n - 1 && n != 1)
+                str += to_string(array[i]) + " + ";
+            else
+                str += to_string(array[i]);
         }
+        str += " = " + to_string(sum);
+        saveHistory(str);
         cout << " is :: " << sum << endl;
     }
     void Sub()
@@ -79,10 +88,18 @@ public:
             ans = 0 - array[n - 1];
         }
         cout << "\n\nSubtraction of ";
+        string str = ""; // saving to history purpose
         for (int i = 0; i < n; i++)
         {
             cout << array[i] << ',';
+            // saving to history
+            if (i < n - 1 && n != 1)
+                str += to_string(array[i]) + " - ";
+            else
+                str += to_string(array[i]);
         }
+        str += " = " + to_string(ans);
+        saveHistory(str);
         cout << " is :: " << ans << endl;
     }
     void Divide()
@@ -93,7 +110,12 @@ public:
         cin >> dividend;
         cout << "Enter devisor : ";
         cin >> devisor;
-        cout << "\nThe Quotient of " << dividend << '/' << devisor << " is : " << double(dividend) / devisor << " & Remainder is : " << dividend % devisor << endl;
+        quotient = double(dividend) / devisor;
+        remainder = dividend % devisor;
+        cout << "\nThe Quotient of " << dividend << '/' << devisor << " is : " << quotient << " & Remainder is : " << remainder << endl;
+        string str = ""; // saving to history purpose
+        str += to_string(dividend) + " / " + to_string(devisor) + " = " + to_string(quotient) + " & Remainder = " + to_string(remainder);
+        saveHistory(str);
     }
     void Multiply()
     {
@@ -108,13 +130,21 @@ public:
             ans *= array[i];
         }
         cout << "\n\nMultiplication answer of ";
+        string str = ""; // saving to history purpose
         for (int i = 0; i < n; i++)
         {
             if (i != n - 1)
                 cout << array[i] << " X ";
             else
                 cout << array[i];
+            // saving to history
+            if (i < n - 1 && n != 1)
+                str += to_string(array[i]) + " x ";
+            else
+                str += to_string(array[i]);
         }
+        str += " = " + to_string(ans);
+        saveHistory(str);
         cout << " is :: " << ans << endl;
     }
     void Percentage()
@@ -126,12 +156,33 @@ public:
         cin >> total;
         cout << endl
              << obtained << '/' << total << " : " << (float(obtained) / total) * 100 << '%' << endl;
+        string str = ""; // saving to history purpose
+        str += to_string(obtained) + " / " + to_string(total) + " = " + to_string((float(obtained) / total) * 100);
+        saveHistory(str);
     }
-
     void showHistory()
     {
+        cout << "\n\n";
+        if (h == -1)
+        {
+            cout << "\t Nothing here!\n\n";
+        }
+        else
+        {
+            for (int i = 0; i <= h; i++)
+            {
+                cout << history[i] << endl;
+            }
+            cout << "\n";
+        }
     }
-
+    void saveHistory(string str)
+    {
+        // stores only 1st 20 calculations
+        ++h;
+        if (h < 20)
+            history[h] = str;
+    }
     void selectOperation(char choice)
     {
         if (choice == '0')
@@ -170,8 +221,7 @@ public:
         mainMenu();
     }
 };
-
-main()
+main() //! MAIN FUNCTION STANDS HERE
 {
     Calculator simple;
     simple.mainMenu();
