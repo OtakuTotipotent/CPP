@@ -1,3 +1,4 @@
+// Printing the common elements of two arrays
 #include <bits/stdc++.h>
 using namespace std;
 int main()
